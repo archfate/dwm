@@ -37,7 +37,8 @@ static const unsigned int alphas[][3]      = {
 
 /* tagging */
 /* static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; */
-static const char *tags[] = { " ", " ", " ", " ", " ", "", "", "" };
+/* static const char *tags[] = { " ", " ", " ", " ", " ", "", "", "" }; */
+static const char *tags[] = { "日", "月", "星", "辰", "太極" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -48,7 +49,7 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 0,       0,           -1 },
 	{ "st",       NULL,       NULL,       1 << 1,       0,           -1 },
-	{ "mpv",      NULL,       NULL,       0, 	    0,           -1 },
+	{ "mpv",      NULL,       NULL,       0, 	    1,           -1 },
 
 };
 
@@ -59,10 +60,10 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "🀧",      tile },    /* first entry is default */
-	{ "霄",      NULL },    /* no layout function means floating behavior */
-	{ "ꙩ",      monocle },
-	{ "∞",      spiral },
+	{ "☯",      tile },    /* first entry is default */
+	{ "",      NULL },    /* no layout function means floating behavior */
+	{ "",      monocle },
+	{ "",      spiral },
 	{ "[\\]",     dwindle },
 	{ "NULL",     NULL },
 
@@ -86,7 +87,10 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_pink, "-nf", col_black, "-sb", col_baby_blue, "-sf", col_black, NULL };
 /*static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL }; */
+static const char scratchpadname[] = "scratchpad";
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34","-e", "tmux", NULL };
 static const char *termcmd[]  = { "st", NULL };
+
 //static const char *qutecmd[] = { "firejail", "qutebrowser", NULL };
 static const char *slockcmd[] = { "slock", NULL };
 static const char *surfcmd[] = { "tabbed", "-c", "surf", "-e", NULL };
@@ -112,12 +116,14 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
 //	{ MODKEY,                       XK_w,      spawn,          {.v = qutecmd } },
 	{ MODKEY|ShiftMask,             XK_x,      spawn,          {.v = slockcmd } },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = surfcmd } },
 
 	/* Script Keys */
 	{ MODKEY,                       XK_o,      spawn,	   SHCMD("linkpiper") },
+	{ MODKEY,                       XK_O,      spawn,	   SHCMD("urlportal") },
 
 	/* Layout Keys */
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
