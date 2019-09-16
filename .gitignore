@@ -2,3 +2,4 @@
 *.orig
 *pkg/
 *.pkg.tar.xz
+*.rej
